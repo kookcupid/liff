@@ -37,14 +37,17 @@
   <button id="btnClose" onclick="closed()">Close</button>
 
   <!-- <script src="js/vconsole.min.js"></script> -->
-  <!-- <script>
-    var vConsole = new VConsole()
-    console.log("Hello World!")
-  </script> -->
+  <!-- <script>var vConsole = new VConsole()</script> -->
 
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
     function createUniversalLink() {
+      const link1 = liff.permanentLink.createUrl()
+      document.getElementById("universalLink1").append(link1)
+
+      liff.permanentLink.setExtraQueryParam('param=9')
+      const link2 = liff.permanentLink.createUrl()
+      document.getElementById("universalLink2").append(link2)
     }
 
     async function shareMsg() {
@@ -66,7 +69,7 @@
     }
 
     async function scanCode() {
-      const result = await liff.scanCode()
+      const result = await liff.scanCodeV2()
       document.getElementById("scanCode").append(result.value)
     }
 
@@ -140,7 +143,7 @@
         getUserProfile()
         getContext()
         getFriendship()
-        // createUniversalLink()
+        createUniversalLink()
       } else {
         liff.login()
       }
