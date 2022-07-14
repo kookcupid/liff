@@ -1,10 +1,9 @@
-<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover">
-  <title>My LIFF app</title>
-  <link rel="stylesheet" href="css/style.css" media="all">
+  <title>My LIFF App</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <p id="os"><b>OS:</b> </p>
@@ -27,7 +26,7 @@
   <p id="isLoggedIn"><b>isLoggedIn:</b> </p>
   <p id="universalLink1"><b>Universal Link:</b> </p>
   <p id="universalLink2"><b>Universal Link with Query params:</b> </p>
-  <p><a href="https://kookcupid.github.io/liff/path/?param=9">Link to Path</a></p>
+  <p><a href="liff/path/?param=9">Link to Path</a></p>
 
   <button id="btnMsg" onclick="sendMsg()">Send Message</button>
   <button id="btnShare" onclick="shareMsg()">Share Target Picker</button>
@@ -40,7 +39,6 @@
   <script>
     var vConsole = new VConsole()
     console.log("Hello World!")
-    errorPlease()
   </script>
 
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -57,8 +55,8 @@
     async function shareMsg() {
       await liff.shareTargetPicker([
         {
-          "type": "text",
-          "text": "This message was sent by ShareTargetPicker"
+          type: "text",
+          text: "This message was sent by ShareTargetPicker"
         }
       ])
     }
@@ -73,10 +71,10 @@
     }
 
     async function scanCode() {
-      const result = await liff.scanCodeV2()
+      const result = await liff.scanCode()
       document.getElementById("scanCode").append(result.value)
     }
-
+    
     function openWindow() {
       liff.openWindow({
         url: "https://line.me",
@@ -88,8 +86,8 @@
       const friend = await liff.getFriendship()
       document.getElementById("friendship").append(friend.friendFlag)
       if (!friend.friendFlag) {
-        if (confirm("คุณยังไม่ได้เพิ่ม Bot เป็นเพื่อน จะเพิ่มหรื่อไม่? ")) {
-          window.location = "https://line.me/R/ti/p/@tsn6422s/@kookcupid"
+        if (confirm("คุณยังไม่ได้เพิ่ม Bot เป็นเพื่อน จะเพิ่มเลยไหม?")) {
+          window.location = "https://line.me/R/ti/p/@YOUR-BOT-ID"
         }
       }
     }
@@ -108,11 +106,13 @@
     }
 
     function getContext() {
-      document.getElementById("type").append(liff.getContext().type)
-      document.getElementById("viewType").append(liff.getContext().viewType)
-      document.getElementById("utouId").append(liff.getContext().utouId)
-      document.getElementById("roomId").append(liff.getContext().roomId)
-      document.getElementById("groupId").append(liff.getContext().groupId)
+      if (liff.getContext() != null) {
+        document.getElementById("type").append(liff.getContext().type)
+        document.getElementById("viewType").append(liff.getContext().viewType)
+        document.getElementById("utouId").append(liff.getContext().utouId)
+        document.getElementById("roomId").append(liff.getContext().roomId)
+        document.getElementById("groupId").append(liff.getContext().groupId)
+      }
     }
 
     async function getUserProfile() {
@@ -122,8 +122,8 @@
       document.getElementById("statusMessage").append(profile.statusMessage)
       document.getElementById("displayName").append(profile.displayName)
       document.getElementById("decodedIDToken").append(liff.getDecodedIDToken().email)
-     }
-
+    }
+    
     function getEnvironment() {
       document.getElementById("os").append(liff.getOS())
       document.getElementById("language").append(liff.getLanguage())
@@ -152,7 +152,7 @@
           liff.login()
         }
       })
-      await liff.init({ liffId: "1657302000-mjwVAvPv" })
+      await liff.init({ liffId: "YOUR-LIFF-ID" })
     }
     main()
   </script>
