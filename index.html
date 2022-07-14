@@ -57,11 +57,12 @@
     }
 
     function logOut() {
+      liff.logout()
+      window.location.reload()
     }
 
     function closed() {
       liff.closeWindow()
-      window.location.reload()
     }
 
     async function scanCode() {
